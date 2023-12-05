@@ -1,8 +1,119 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- FORM VIEW -->
+    <record id="modele_test_view_form" model="ir.ui.view">
+        <field name="name">modele.test.form</field>
+        <field name="model">modele_test</field>
+        <field name="arch" type="xml">
+            <form string="Form Test">
+                <header>
+                    <button name="action_sold" type="object" string="Vendu" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Annuler" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group col="2">       
+                        <group>
+                            <field name="name" nolabel="1" colspan="2"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <br/>
+                        </group>
+                    </group>
+                    <group col="4">
+                        <group colspan="2">
+                            <field name="property_type_id"/>
+                            <field name="postcode"/>
+                            <field name="date_availability"/>
+                        </group>
+                        <group colspan="2" string="TARIFICATION">
+                            <field name="expected_price"/>
+                            <field name="best_price"/>
+                            <field name="selling_price"/>
+                        </group>
+                    </group> 
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <group col="3" colspan="2">
+                                    <field name="description"/>
+                                    <field name="total_area"/>
+                                    <field name="living_area" attrs="{'invisible':[('property_type_id','=',3)]}"/>
+                                    <field name="bedrooms" attrs="{'invisible':[('property_type_id','=',3)]}"/>
+                                    <field name="facades"/>
+                                    <field name="garage" attrs="{'invisible':[('property_type_id','=',3)]}"/>
+                                    <field name="garden" attrs="{'invisible':[('property_type_id','=',3)]}"/>
+                                    <field name="garden_area" attrs="{'invisible':['|', ('garden','=', False), ('property_type_id','=',3)]}"/>
+                                    <field name="garden_orientation" attrs="{'invisible':['|', ('garden','=', False), ('property_type_id','=',3)]}"/>
+                                    <field name="state" attrs="{'invisible':[('property_type_id','=',3)]}"/>
+                                    <field name="active" attrs="{'invisible':[('property_type_id','=',3)]}"/>
+                                </group>
+                            </group>        
+                        </page>
+                        <page string="Offres">
+                            <field name="offer_ids" attrs="{'readonly':[('state','in',('accepted','refused'))]}"/>
+                        </page>                        
+                        <page string="Autres infos">
+                            <group>
+                                <group col="3" colspan="2">
+                                    <field name="salesman_id"/>
+                                    <field name="buyer_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="modele_test_view_tree" model="ir.ui.view">
+        <field name="name">modele.test.tree</field>
+        <field name="model">modele_test</field>
+        <field name="arch" type="xml">
+            <tree string="Tree Test">
+                <field name="name"/>
+                <field name="property_type_id"/>    
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="expected_price"/>
+                <field name="offer_ids"/> 
+                <field name="best_price"/>
+                <field name="selling_price"/>
+                <field name="date_availability"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FILTER -->
+    <record id="modele_test_search" model="ir.ui.view">
+        <field name="name">modele.test.search</field>
+        <field name="model">modele_test</field>
+        <field name="arch" type="xml">
+            <search string="Search Test">
+                <field name="name"/>
+                <field name="property_type_id"/>
+                <field name="bedrooms"/>
+                <filter string="Disponible" 
+                        name="availability" 
+                        domain="[('date_availability', '&lt;=', datetime.datetime.now().strftime('%Y-%m-%d'))]"/>
+                <filter string="Nouveau" 
+                        name="new" 
+                        domain="[('state', '=', 'new')]"/>
+                <filter string="Offre reçu" 
+                        name="received" 
+                        domain="[('state', '=', 'offer_received')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Code postal" name="postalcode" context="{'group_by':'postcode'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="modele_test_action" model="ir.actions.act_window">
-        <field name="name">Test des actions</field> <!-- Test des actions in UI -->
-        <field name="res_model">modele_test</field> <!-- cf test_module.py _name-->
-        <field name="view_mode">tree,form</field>  <!-- forme.s de la vue ici arborescence et formulaire -->
+        <field name="name">Immobilier</field> 
+        <field name="res_model">modele_test</field> 
+        <field name="view_mode">tree,form</field> 
     </record>
 </odoo>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- View Form Rabbit MQ -->
+
+    <record id="rabbitmq_view_form" model="ir.ui.view">
+        <field name="name">rabbitmq_view_form</field>
+        <field name="model">rabbitmq.parameters</field>
+        <field name="arch" type="xml">
+            <form string="Rabbit MQ Odoo V16">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="rbq_user_new"/>
+                            <field name="rbq_exchange_new"/>
+                            <field name="rbq_password_new"/>
+                        </group>
+                        <group>
+                            <field name="rbq_host_new"/>
+                            <field name="rbq_port_new"/>
+                            <field name="rbq_trigram_new"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View Tree Rabbit MQ -->
+
+    <record id="rabbitmq_view_tree" model="ir.ui.view">
+        <field name="name">rabbitmq_view_tree</field>
+        <field name="model">rabbitmq.parameters</field>
+        <field name="arch" type="xml">
+            <tree string="rabbit MQ">
+                <field name="name"/>
+                <field name="rbq_user_new"/>
+                <field name="rbq_exchange_new"/>
+                <field name="rbq_password_new"/>
+                <field name="rbq_host_new"/>
+                <field name="rbq_port_new"/>
+                <field name="rbq_trigram_new"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action Rabbit MQ -->
+    <record id="rabbitmq_parameters_action" model="ir.actions.act_window">
+        <field name="name">Rabbit MQ Odoo V16</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">rabbitmq.parameters</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+    <!-- This Menu Item for Rabbit MQ action -->
+
+    <menuitem id="menu_rabbitmq_parameters" name="Rabbit MQ" parent="stock.menu_stock_config_settings"
+              sequence="1" action="rabbitmq_parameters_action"/>
+</odoo>

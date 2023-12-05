@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TREE VIEW -->
+    <record id="estate_property_tag_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.type.tree</field>
+        <field name="model">estate_property_tag</field>
+        <field name="arch" type="xml">
+            <tree string="Tree Tags">
+                <field name="name"/>    <!-- reprendre les noms des champs définis dans le modèle -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="estate_property_tag_action" model="ir.actions.act_window">
+        <field name="name">Tags de propriété</field> 
+        <field name="res_model">estate_property_tag</field> 
+        <field name="view_mode">tree,form</field>  
+    </record>
+</odoo>
