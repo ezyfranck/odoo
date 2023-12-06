@@ -1,20 +1,25 @@
 from odoo import api, models, fields
 from odoo.exceptions import UserError
-from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
 class ModeleTest(models.Model):
     _name = "modele_test"   #définit le nom du modèle et le nom de la table en BDD
     _description = "test modele"
+    _sql_constraints= [
+        ("check_postcode", "CHECK(LENGTH(postcode) = 5)", "Veuillez sasir un code postal valide !"),
+        ("check_expected_price", "CHECK(expected_price >=0)", "Le prix attendu doit être >= 0 !"),
+        ("set_unique_name", "UNIQUE(name)", "Le nom donné est dèjà existant !"),
+        ("check_total_area", "CHECK(total_area >=0)", "La surface du bien doit être renseignée et positive !")
+        ]
     
     def action_cancel(self):
-        for record in self:
+        for _ in self:
             if "cancelled" in self.mapped('state'):
                 raise UserError("Un bien annulé ne peut pas être vendu")
         return self.write({'state':'sold'})
     
     def action_sold(self):
-        for record in self:
+        for _ in self:
             if "sold" in self.mapped('state'):
                 raise UserError("Un bien vendu ne peut pas être annulée")
         return self.write({'state':'cancelled'})
