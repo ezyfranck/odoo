@@ -14,4 +14,4 @@ from . import session
 from . import view
 from . import webclient
 
-from . import main  # deprecated
+#from . import main  # deprecated
