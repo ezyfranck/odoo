@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 class ModeleTest(models.Model):
     _name = "modele_test"   #définit le nom du modèle et le nom de la table en BDD
     _description = "test modele"
+    _order= "id desc"
     _sql_constraints= [
         ("check_postcode", "CHECK(LENGTH(postcode) = 5)", "Veuillez sasir un code postal valide !"),
         ("check_expected_price", "CHECK(expected_price >=0)", "Le prix attendu doit être >= 0 !"),

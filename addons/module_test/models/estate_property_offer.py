@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 class EstatePropertyOffer(models.Model):
     _name = "estate_property_offer"
     _description= "Offres des biens immobiliers"
+    _order = "price desc"
     _sql_constraints= [('check_positive_amount', 'CHECK(price >=0)', "Le montant de l'offre doit être > 0")]
     
     def action_accept(self):
@@ -29,6 +30,7 @@ class EstatePropertyOffer(models.Model):
     
     validity= fields.Integer(string="Validité (jours)", default=7)
     date_deadline= fields.Date(string="Date d'échéance", compute="_date_deadline", inverse="_inverse_date_deadline")
+    property_type_id = fields.Many2one('estate_property_type', related='property_id.property_type_id', string='Type de propriété', store=True)
     
     @api.depends('create_date','validity')
     def _date_deadline(self):

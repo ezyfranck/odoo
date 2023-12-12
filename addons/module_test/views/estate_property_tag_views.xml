@@ -5,7 +5,7 @@
         <field name="name">estate.property.type.tree</field>
         <field name="model">estate_property_tag</field>
         <field name="arch" type="xml">
-            <tree string="Tree Tags">
+            <tree string="Tree Tags" editable="bottom">
                 <field name="name"/>    <!-- reprendre les noms des champs définis dans le modèle -->
             </tree>
         </field>

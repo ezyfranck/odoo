@@ -21,9 +21,10 @@
         <field name="name">estate.property.offer.tree</field>
         <field name="model">estate_property_offer</field>
         <field name="arch" type="xml">
-            <tree string="Tree Offer">
+            <tree decoration-success="state=='accepted'" decoration-danger="state=='refused'" editable="bottom">
                 <field name="price"/>
                 <field name="partner_id"/>
+                <field name="property_type_id"/>
                 <field name="validity"/>
                 <field name="date_deadline"/>
                 <button name="action_accept" type="object" string="accepté" icon="fa-check"/>
