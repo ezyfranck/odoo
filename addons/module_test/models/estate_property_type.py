@@ -15,10 +15,10 @@ class EstatePropertyType(models.Model):
     def _compute_offer(self):
         # This solution is quite complex. It is likely that the trainee would have done a search in
         # a loop.
-        data = self.env["estate_property_offer"].read_group(
-            [("property_id.state", "!=", "canceled"), ("property_type_id", "!=", False)],
-            ["ids:array_agg(id)", "property_type_id"],
-            ["property_type_id"],
+        data = self.env["estate_property_offer"].read_group(       #self.env permet d'interagir avec la BDD. self.env['nom_du_modele']
+            [("property_id.state", "!=", "canceled"), ("property_type_id", "!=", False)],     # plusieurs méthodes: pour chercher des enr spécifiques:
+            ["ids:array_agg(id)", "property_type_id"],          # .search([('champ', '=', 'valeur')])  ### pour créer un nouvel enr: .create({'champ': 'valeur'})
+            ["property_type_id"],               # pour mettre à jour un enr: record= self.env['modele'].browse(record_id) puis record.write ...
         )
         mapped_count = {d["property_type_id"][0]: d["property_type_id_count"] for d in data}
         mapped_ids = {d["property_type_id"][0]: d["ids"] for d in data}
@@ -27,7 +27,9 @@ class EstatePropertyType(models.Model):
             prop_type.offer_ids = mapped_ids.get(prop_type.id, [])
             
     def action_view_offers(self):
-        res = self.env.ref("module_test.estate_property_offer_action").read()[0]
-        res["domain"] = [("id", "in", self.offer_ids.ids)]
-        return res    
+        res = self.env.ref("module_test.estate_property_offer_action").read()[0]  #fait référence à l'action estate_property_offer_action du module_test
+        res["domain"] = [("id", "in", self.offer_ids.ids)]                          #ici dans la vue estate_property_offer_views  # .ref pour lecture seulement
+        return res                                                                  # tandis que self.env pour CRUD. [0] premier élément de la liste
+                                                                                # res['domain'] fait référence au champ domaine de la meme vue et l'expression
+                                                                                # récupère tous les ids de offer_ids qui pointe vers estate_property_offer
     

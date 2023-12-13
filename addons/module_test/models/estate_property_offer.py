@@ -36,14 +36,13 @@ class EstatePropertyOffer(models.Model):
     def _date_deadline(self):
         for offer in self:
             # verif si date de creation de l'offre présente sinon prendre date du jour
-            deadline= offer.create_date.date() if offer.create_date else fields.Date.today()
+            deadline= offer.create_date.date() if offer.create_date else fields.Date.today() 
             # ajout de la valeur (defaut 7 jours) à la date de création
-            offer.date_deadline= deadline + relativedelta(days=offer.validity)
+            offer.date_deadline= deadline + relativedelta(days=offer.validity)  
             
     def _inverse_date_deadline(self):
         for offer in self:
             deadline= offer.create_date.date() if offer.create_date else fields.Date.today()
-            # 
             offer.validity= (offer.date_deadline - deadline).days
             
     @api.constrains('date_deadline')
