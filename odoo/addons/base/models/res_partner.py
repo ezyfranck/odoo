@@ -1107,8 +1107,6 @@ class Partner(models.Model):
     def _get_country_name(self):
         return self.country_id.name or ''
 
-
-
 class ResPartnerIndustry(models.Model):
     _description = 'Industry'
     _name = "res.partner.industry"
