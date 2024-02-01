@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="l4_view_picking_type_tree">
+        <field name="name">L4 Picking types</field>
+        <field name="model">l4.stock.picking.type</field>
+        <field name="inherit_id" ref="logistics_improvements.l4_view_picking_type_tree" />
+        <field name="arch" type="xml">
+                <field name="direction" position="after">
+                    <field name="quality" />
+                </field>
+        </field>
+    </record>
+</odoo>

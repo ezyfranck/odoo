@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
+  Copyright (C) 2016 Sodexis <dev@sodexis.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_prestashop_partner_category_form" model="ir.ui.view">
+        <field name="name">prestashop.res.partner.category.form</field>
+        <field name="model">prestashop.res.partner.category</field>
+        <field
+      name="inherit_id"
+      ref="connector_prestashop.view_prestashop_partner_category_form"
+    />
+        <field name="arch" type="xml">
+
+            <field name="prestashop_id" position="after">
+                <field name="taxes_included" />
+            </field>
+        </field>
+    </record>
+</odoo>

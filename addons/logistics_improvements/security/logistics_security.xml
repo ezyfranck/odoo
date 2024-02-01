@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="logistics_module_category" model="ir.module.category">
+            <field name="name">Options Logistics</field>
+        </record>
+
+        <record id="can_change_logistics_states" model="res.groups">
+            <field name="name">Can Change logistic states</field>
+            <field name="category_id" ref="logistics_module_category" />
+        </record>
+
+
+    </data>
+</odoo>

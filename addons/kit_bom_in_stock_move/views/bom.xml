@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="mrp_bom_assembly_form" model="ir.ui.view">
+			<field name="name">mrp.bom.form.assembly</field>
+			<field name="model">mrp.bom</field>
+			<field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<field name="type" position="after">
+					<field name="assembly" />
+				</field>
+			</field>
+		</record>
+
+	</data>
+</odoo>

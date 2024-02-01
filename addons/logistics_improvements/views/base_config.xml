@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+
+        <record id="view_logistics_configuration" model="ir.ui.view">
+            <field name="name">General Settings</field>
+            <field name="model">res.config.settings</field>
+            <field
+        name="inherit_id"
+        ref="base_setup.res_config_settings_view_form"
+      />
+            <field name="arch" type="xml">
+
+                <xpath
+          expr="//div[@id='product_general_settings']"
+          position="after"
+        >
+
+                    <div id="logistics_configuration">
+                        <h2>Logistics configuration</h2>
+                        <div
+              class="row mt16 o_settings_container"
+              name="logistics_configuration"
+            >
+
+
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="check_product_constraints" />
+                                </div>
+
+                                <div class="o_setting_right_pane">
+                                    <label
+                    string="check_product_constraints"
+                    for="check_product_constraints"
+                  />
+                                    <div class="text-muted">
+                                        <label
+                      for="check_product_constraints"
+                    />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="check_partner_constraints" />
+                                </div>
+
+                                <div class="o_setting_right_pane">
+                                    <label
+                    string="check_partner_constraints"
+                    for="check_partner_constraints"
+                  />
+                                    <div class="text-muted">
+                                        <label
+                      for="check_partner_constraints"
+                    />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_base_substate_form" model="ir.ui.view">
+            <field name="name">base.substate form</field>
+            <field name="model">base.substate</field>
+            <field
+        name="inherit_id"
+        ref="base_substate.base_substate_view_form"
+      />
+            <field name="arch" type="xml">
+                <xpath
+          expr="//group[@name='substate_definition']"
+          position="after"
+        >
+                    <group name="logistics">
+                        <field
+              name="is_logistics_state"
+              widget="boolean_toggle"
+            />
+                        <field
+              name="exclude_state_from_mrp"
+              widget="boolean_toggle"
+            />
+                        <field
+              name="display_in_status_bar"
+              widget="boolean_toggle"
+            />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

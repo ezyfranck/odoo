@@ -1,0 +1,1 @@
+from . import product_template_ref_ean_supplier

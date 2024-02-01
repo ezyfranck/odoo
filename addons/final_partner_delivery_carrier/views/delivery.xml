@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+
+
+        <!-- ############### Search view ############### -->
+
+
+        <!-- ############### Tree view ############### -->
+
+
+        <!-- ############### Form view ############### -->
+
+
+        <record model="ir.ui.view" id="use_final_shipping">
+            <field name="name">logistique.delivery.carrier.form</field>
+            <field name="model">delivery.carrier</field>
+            <field
+        name="inherit_id"
+        ref="delivery.view_delivery_carrier_form"
+      />
+            <field name="arch" type="xml">
+
+<xpath expr="//group[@name='delivery_details']" position="after">
+                    <group>
+                        <field name="use_final_shipping_from_order" />
+                        <field name="order_type_id" />
+
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <!-- ############### Actions ############### -->
+
+
+        <!-- ############### Menus ############### -->
+
+
+    </data>
+</openerp>

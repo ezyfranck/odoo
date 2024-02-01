@@ -22,7 +22,7 @@ class ModeleTest(models.Model):
     def action_sold(self):   # idem
         for _ in self:
             if "sold" in self.mapped('state'):
-                raise UserError("Un bien vendu ne peut pas être annulée")
+                raise UserError("Un bien vendu ne peut pas être annulé")
         return self.write({'state':'cancelled'})
             
      

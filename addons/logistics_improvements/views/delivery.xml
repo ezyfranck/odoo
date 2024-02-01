@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <!-- ############### Search view ############### -->
+
+
+        <!-- ############### Tree view ############### -->
+
+
+        <!-- ############### Form view ############### -->
+
+
+        <record model="ir.ui.view" id="mag_yse_transporteur_form">
+            <field name="name">logistique.delivery.carrier.form</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+                    <group>
+                        <field name="product_id" required="1" />
+                    </group>
+                    <group>
+                        <field name="name_l4" />
+                        <field name="name_l4_key2" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- ############### Actions ############### -->
+
+
+        <!-- ############### Menus ############### -->
+
+
+    </data>
+</openerp>	   

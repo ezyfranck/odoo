@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- ############### Search view ############### -->
+
+
+        <!-- ############### Tree view ############### -->
+
+        <!-- ############### Form view ############### -->
+
+        <record model="ir.ui.view" id="logistics_no_rexport_refart">
+            <field name="name">logistics.no_refart.form</field>
+            <field name="model">product.product</field>
+            <field name="priority">100</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"></field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="toggle_refart_no_export" type="object" class="oe_stat_button" icon="fa-upload">
+                        <span class="o_stat_text">
+                            Export Refart
+                            <br />
+                            <span class="o_stat_text oe_clear">
+                                <field name="refart_no_export" widget="boolean_toggle" />
+                            </span>
+
+                        </span>
+
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ############### Actions ############### -->
+
+        <!-- ############### Menus ############### -->
+
+
+    </data>
+</openerp>	   

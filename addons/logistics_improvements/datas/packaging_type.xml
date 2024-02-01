@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright <YEAR(S)> <AUTHOR(S)>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <data>
+
+        <record
+      id="product_packaging_level.product_packaging_level_default"
+      model="product.packaging.level"
+    >
+            <field name="active" eval="0" />
+            <field name="logistics_uom_level">nc</field>
+        </record>
+
+        <record id="product_packaging_level_uvc" model="product.packaging.level">
+            <field name="name">Unite de Vente Commerciale</field>
+            <field name="code">UVC</field>
+            <field name="sequence">1</field>
+            <field name="logistics_uom_level">uvc</field>
+            <!-- <field name="is_default" eval="0" /> -->
+        </record>
+
+        <record id="product_packaging_level_spcb" model="product.packaging.level">
+            <field name="name">Sous Partie par Combien</field>
+            <field name="code">SPCB</field>
+            <field name="sequence">10</field>
+            <field name="logistics_uom_level">spcb</field>
+            <!-- <field name="is_default" eval="0" /> -->
+        </record>
+
+        <record id="product_packaging_level_pcb" model="product.packaging.level">
+            <field name="name">Par Combien</field>
+            <field name="code">PCB</field>
+            <field name="sequence">20</field>
+            <field name="logistics_uom_level">pcb</field>
+            <!-- <field name="is_default" eval="0" /> -->
+        </record>
+
+        <record id="product_packaging_level_sup" model="product.packaging.level">
+            <field name="name">Superieur</field>
+            <field name="code">SUP</field>
+            <field name="sequence">50</field>
+            <field name="logistics_uom_level">sup</field>
+            <!-- <field name="is_default" eval="0" /> -->
+        </record>
+
+        <record id="product_packaging_level_pal" model="product.packaging.level">
+            <field name="name">Palette</field>
+            <field name="code">PAL</field>
+            <field name="sequence">99</field>
+            <field name="logistics_uom_level">pal</field>
+            <!-- <field name="is_default" eval="0" /> -->
+        </record>
+    </data>
+</odoo>

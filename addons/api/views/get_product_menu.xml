@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="api_ezy_connect_root" name="API EZYConnect"> <!-- nom qui apparaitra dans le menu UI-->
+        
+        <menuitem id="client_params" name="CLIENT" sequence="5">
+            <menuitem id="client_create" name="Création" action="set_client_params_form" sequence="5"/>
+            <menuitem id="client_get" name="Sélection" action="get_client_params" sequence="10"/>
+        </menuitem>
+
+        <menuitem id="refart_menu" name="REFART" sequence="10">
+            <menuitem id="refart_method" name="Action" action="server_action_get_product_refart" sequence="5"/>
+            <menuitem id="refart_view" name="Vue" action="action_get_product_view_refart" sequence="10"/>
+        </menuitem>
+        
+        <menuitem id="anapro_menu" name="ANAPRO" sequence="15">
+            <menuitem id="anapro_method" name="Action" action="server_action_get_product_anapro" sequence="5"/>
+            <menuitem id="anapro_view" name="Vue" action="action_get_product_view_anapro" sequence="10"/>
+        </menuitem>            
+
+        <menuitem id="cmdcli_menu" name="CMDCLI" sequence="20">
+            <menuitem id="cmdcli_method" name="Action" action="server_action_get_product_cmdcli" sequence="5"/>
+            <menuitem id="cmdcli_view" name="Vue" action="action_get_product_view_cmdcli" sequence="10"/>
+        </menuitem>
+
+        <!--
+        <menuitem id="crpcmd_menu" name="CRPCMD" action="server_action_get_product" sequence="20"/>
+        <menuitem id="crapro_menu" name="CRAPRO" action="server_action_get_product" sequence="25"/>
+        <menuitem id="stkmvt_menu" name="STKMVT" action="server_action_get_product" sequence="30"/>
+        <menuitem id="stketa_menu" name="STKETA" action="server_action_get_product" sequence="35"/>
+        -->
+
+    </menuitem>
+</odoo>

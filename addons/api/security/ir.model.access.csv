@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_refart_model,get.product,model_get_product,base.group_user,1,1,1,1
+access_anapro_model,get.anapro,model_get_anapro,base.group_user,1,1,1,1
+access_cmdcli_model,get.cmdcli,model_get_cmdcli,base.group_user,1,1,1,1
+access_client_get,get.client,model_get_client,base.group_user,1,1,1,1
+access_client_set,set.client,model_set_client,base.group_user,1,1,1,1
+

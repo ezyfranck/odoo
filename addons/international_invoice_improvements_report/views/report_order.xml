@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="international_report_sale_order"
+			inherit_id="sale.report_saleorder_document">
+		    
+		    <xpath expr="//t[@t-if='not line.display_type']/td[@name='td_name']/span[@t-field='line.name']" position="after">
+                <t t-if="is_pro_forma and line.product_id.hs_code_id">
+                    <br/>HS Code : <span t-field="line.product_id.hs_code_id.hs_code"/>
+                </t>
+                <t t-if="is_pro_forma and line.product_id.origin_country_id">
+                    <br/>Origin country : <span t-field="line.product_id.origin_country_id.name"/>
+                </t>
+            </xpath>
+
+				<!-- <xpath expr="//div[@id='total']//table/tr[1]"
+					position="attributes">
+					<attribute name="t-if">not (env.context.get('proforma', False) or is_pro_forma)</attribute>
+				</xpath> -->
+				<xpath expr="//div[@id='total']//table/t[@t-set='tax_totals']"
+					position="before">
+					<t t-if="env.context.get('proforma', False) or is_pro_forma">
+						<tr class="border-black">
+							<td>
+								<strong>Total Without Taxes</strong>
+							</td>
+							<td class="text-right">
+								<span t-field="doc.sub_total_ht_without_carrier"
+									t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}" />
+							</td>
+						</tr>
+						<tr class="border-black">
+							<td>
+								<strong>Delivery Total Without Taxes</strong>
+							</td>
+							<td class="text-right">
+								<span t-field="doc.sub_total_ht_carrier"
+									t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}" />
+							</td>
+						</tr>
+					</t>
+				</xpath>
+		</template>
+	</data>
+</odoo>

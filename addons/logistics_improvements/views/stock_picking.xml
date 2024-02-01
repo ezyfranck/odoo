@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="l4_view_picking_type_tree">
+        <field name="name">L4 Picking types</field>
+        <field name="model">l4.stock.picking.type</field>
+        <field name="arch" type="xml">
+            <tree string="Picking Types">
+                <field name="move_code" />
+                <field name="move_reason" />
+                <field name="direction" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="l4_view_picking_type_form">
+        <field name="name">Picking Types</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form" />
+        <field name="arch" type="xml">
+            <field name="show_operations" position="after">
+                <field name="default_blocked_for_logistics" />
+                <field name="default_managed_by_date" />
+            </field>
+
+            <sheet position="inside">
+                <separator />
+                <field name="l4_types" />
+            </sheet>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="logistics_view_picking_tree">
+        <field name="name">Stock picking</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree" />
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="substate_id" />
+                <field name="picking_type_code" invisible="1" />
+                <field
+          name="is_blocked_for_logistics"
+          widget="boolean_toggle"
+        />
+                <field
+          name="is_managed_by_date"
+          widget="boolean_toggle"
+          optional="hide"
+          attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"
+        />
+            </field>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="logistics_picking_infos">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <data>
+                <button name="do_unreserve" position="replace">
+                    <field name="show_unreserve" invisible="1" />
+                    <button
+            name="do_unreserve"
+            string="Unreserve"
+            groups="base.group_user"
+            type="object"
+            attrs="{'invisible': [ ('show_unreserve', '!=', True)]}"
+            context="{'bypass_logistics_states': True}"
+          />
+                </button>
+                <xpath expr="//header" position="after">
+                    <header name="substate">
+                        <field
+              id="assigned_substate"
+              name="textual_substate"
+              widget="statusbar"
+              attrs="{'invisible': [('state', '!=', 'assigned')]}"
+            />
+                        <field
+              name="textual_substate_done"
+              widget="statusbar"
+              attrs="{'invisible': [('state', '!=', 'done')]}"
+            />
+                    </header>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <!-- <field name="substate_id" invisible="1" /> -->
+                    <button
+            name="button_reset_refused_by_logistic"
+            attrs="{'invisible': ['|', ('state', '!=', 'assigned'), ('textual_substate', '!=', 'refused_by_logistics')]}"
+            string="Retraiter logistique"
+            type="object"
+            class="oe_highlight"
+          />
+          <button
+            name="button_reset_refused_by_logistic"
+            attrs="{'invisible': ['|', ('state', '!=', 'assigned'), ('textual_substate', 'in', ['refused_by_logistics', 'ready_for_logistics'])]}"
+            string="Retraiter logistique"
+            type="object"
+            class="oe_highlight"
+            groups="logistics_improvements.can_change_logistics_states"
+          />
+                    <!--  -->
+                </xpath>
+                <xpath
+          expr="//field[@name='move_ids_without_package']//form//header"
+          position="after"
+        >
+                    <header name="substate">
+                        <field name="substate_id" />
+                    </header>
+                </xpath>
+                <xpath
+          expr="//field[@name='move_ids_without_package']//form//field[@name='description_picking']"
+          position="before"
+        >
+                    <field name="substate_id" readonly="1" />
+                </xpath>
+                <notebook position="inside">
+                    <page name="logistics" string="Logistics">
+                        <group>
+                            <group>
+                                <field name="idcanal" string="IDCANAL" />
+                                <field name="typecmd" string="TYPECDE" />
+                                <field name="idgroup" string="IDGROUP" />
+                            </group>
+                            <group>
+                                <field name="picking_type_code" />
+                                <field name="backorder_strategy" />
+                                <field
+                  name="is_blocked_for_logistics"
+                  widget="boolean_toggle"
+                />
+                                <field
+                  name="is_managed_by_date"
+                  widget="boolean_toggle"
+                />
+                                <field name="substate_id" readonly="1" />
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </data>
+        </field>
+    </record>
+
+
+    <!--stock.view_move_picking_form -->
+    <!--	<record model="ir.ui.view" id="l4_move_state">
+			<field name="name">stock.move.form</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_picking_form"></field>
+			<field name="arch" type="xml">
+				<field name="state" position="replace" />
+				<header position="inside">
+					<field name="state" widget="statusbar"
+						statusbar_visible="draft,confirmed,assigned,l4_sent,l4_refused,l4_preparation,done"
+						statusbar_colors="{'waiting':'blue','confirmed':'blue'}" />
+				</header>
+
+			</field>
+		</record>-->
+    <record model="ir.ui.view" id="l4_move_state">
+        <field name="name">stock.move.form</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//header" position="after">
+                    <header name="substate">
+                        <field
+              name="textual_substate"
+              widget="statusbar"
+              readonly="1"
+            />
+                    </header>
+                </xpath>
+                <xpath expr="//group[@name='origin_grp']" position="after">
+                    <group name="Logistics">
+                        <field name="substate_id" readonly="1" />
+                        <field name="l4_xml_file" />
+                        <field name="l4_line_id" />
+
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <!-- ############### Actions ############### -->
+
+
+    <record id="l4_action_picking_type_list" model="ir.actions.act_window">
+        <field name="name">All logistics Operations</field>
+        <field name="res_model">l4.stock.picking.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ############### Menus ############### -->
+
+    <menuitem
+    id="l4_menu_pickingtype"
+    name="Logistics Operation Type"
+    parent="stock.menu_stock_config_settings"
+    action="l4_action_picking_type_list"
+  />
+
+    <!--  ></menuitem> -->
+
+</odoo>

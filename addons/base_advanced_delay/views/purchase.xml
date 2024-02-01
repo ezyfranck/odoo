@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_supplierinfo_advanced_delays_date_form" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+        <field name="priority" eval="10" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <label for="supplier_reliability_delay" />
+                <div>
+                    <field
+            name="supplier_reliability_delay"
+            class="oe_inline"
+            required="1"
+          />
+                    days
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_supplierinfo_advanced_delays_date_tree" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+        <field name="priority" eval="20" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='transport_delay']" position="after">
+                <field name="supplier_reliability_delay" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

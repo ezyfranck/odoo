@@ -1,0 +1,42 @@
+# Copyright <YEAR(S)> <AUTHOR(S)>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+{
+    "name": "Add logistics dimension on product environment",
+    "summary": "Add PCB/SPCB .... on packages",
+    "version": "16.0.2.0.1",
+    "development_status": "Beta",
+    "category": "Product",
+    "website": "https://mind-and-go.com",
+    "author": "<Florent THOMAS>, Mind And Go (M&Go)",
+    "maintainers": ["flotho"],
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "pre_init_hook": "pre_init_hook",
+    "external_dependencies": {
+        "python": [],
+        "bin": [],
+    },
+    "depends": [
+        "product",
+        "product_dimension",
+        "packaging_uom",
+        "product_packaging_dimension",
+        "stock_quant_package_dimension",
+        "stock_product_qty_by_packaging",
+        "stock_quant_package_product_packaging",
+        "stock_packaging_calculator_packaging_level",
+    ],
+    "data": [
+        # "security/some_model_security.xml",
+        # "security/ir.model.access.csv",
+        # "templates/assets.xml",
+        # "views/report_name.xml",
+        "views/packaging_views.xml",
+        "data/packaging_type.xml",
+        # "wizards/wizard_model_view.xml",
+        # "data/wizard_modeltype.xml",
+    ],
+    "demo": [],
+    "qweb": [],
+}

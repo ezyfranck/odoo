@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- REFART -->
+    <record id="view_get_product_refart_tree" model="ir.ui.view">
+        <field name="name">get.product.refart.tree.view</field>
+        <field name="model">get.product</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="activityCode"/>
+                <field name="articleReference"/>
+                <field name="longArticleDescription"/>
+                <field name="shortArticleDescription"/>
+                <field name="articleType"/>
+                <field name="countryOfOriginCode"/>
+                <field name='netWeightPerUVC'/>
+                <field name="grossWeightPerUVC"/>
+                <field name="barcodes"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="server_action_get_product_refart" model="ir.actions.server">
+        <field name="name">Liste des produits</field>
+        <field name="model_id" ref="model_get_product"/>
+        <field name="binding_model_id" ref="model_get_product"/>
+        <field name="state">code</field>
+        <field name="code">model.get_product_action()</field>
+    </record>
+
+    <record id="action_get_product_view_refart" model="ir.actions.act_window">
+        <field name="name">REFART - Post EzyConnect</field> 
+        <field name="res_model">get.product</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+<!-- GET CLIENT-->
+    <record id="params_form" model="ir.ui.view">
+        <field name="name">params_client_form</field>
+        <field name="model">get.client</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="trigramme"/>
+                        <field name="ident"/>
+                        <field name="activity_name"/>
+                        <field name="client_label"/>
+                        <field name="client_secret" password="True"/>
+                    </group>                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="get_client_params" model="ir.actions.act_window">
+        <field name="name">CLIENT - Form</field> 
+        <field name="res_model">get.client</field>
+        <field name="view_mode">form</field>
+    </record>
+
+<!-- SET CLIENT -->
+    <record id="client_params_form" model="ir.ui.view">
+        <field name="name">create_client</field>
+        <field name="model">set.client</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="ident"/>
+                        <field name="trigramme" attrs="{'invisible': [('ident', '=', '')]}"/>
+                        <field name="activity_name" attrs="{'invisible': [('ident', '=', '')]}"/>
+                        <field name="client_label" attrs="{'invisible': [('ident', '=', '')]}"/>
+                        <field name="client_secret" password="True" attrs="{'invisible': [('ident', '=', '')]}"/>
+                    </group>                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="set_client_params_form" model="ir.actions.act_window">
+        <field name="name">CLIENT - Création</field> 
+        <field name="res_model">set.client</field>
+        <field name="view_mode">form</field>
+    </record>
+
+<!-- ANAPRO -->
+    <record id="view_get_product_anapro_tree" model="ir.ui.view">
+        <field name="name">get.product.anapro.tree.view</field>
+        <field name="model">get.anapro</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='partner_id'/>
+                <field name='partner_name'/>
+                <field name='partner_city'/>
+                <field name='carrier_id'/>
+                <field name='carrier_name'/>
+                <field name='purchase_id'/>
+                <field name='product_qty'/>
+                <field name='product_name'/>
+                <field name='product_barcode'/>
+                <field name='product_default_code'/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="server_action_get_product_anapro" model="ir.actions.server">
+        <field name="name">Liste des approvisionnements</field>
+        <field name="model_id" ref="model_get_anapro"/>
+        <field name="binding_model_id" ref="model_get_anapro"/>
+        <field name="state">code</field>
+        <field name="code">model.get_anapro_action()</field>
+    </record>
+
+    <record id="action_get_product_view_anapro" model="ir.actions.act_window">
+        <field name="name">ANAPRO - Post EzyConnect</field> 
+        <field name="res_model">get.anapro</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+<!-- CMDCLI -->
+    <record id="view_get_product_cmdcli_tree" model="ir.ui.view">
+        <field name="name">get.product.cmdcli.tree.view</field>
+        <field name="model">get.cmdcli</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='partner_id'/>
+                <field name='partner_name'/>
+                <field name='partner_city'/>
+                <field name='carrier_id'/>
+                <field name='carrier_name'/>
+                <field name='sale_qty'/>
+                <field name='product_name'/>
+                <field name='product_barcode'/>
+                <field name='product_default_code'/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="server_action_get_product_cmdcli" model="ir.actions.server">
+        <field name="name">Liste des commandes clients</field>
+        <field name="model_id" ref="model_get_cmdcli"/>
+        <field name="binding_model_id" ref="model_get_cmdcli"/>
+        <field name="state">code</field>
+        <field name="code">model.get_cmdcli_action()</field>
+    </record>
+
+    <record id="action_get_product_view_cmdcli" model="ir.actions.act_window">
+        <field name="name">CMDCLI - Post EzyConnect</field> 
+        <field name="res_model">get.cmdcli</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- ############### Search view ############### -->
+
+
+        <!-- ############### Tree view ############### -->
+
+        <!-- ############### Form view ############### -->
+        <record model="ir.ui.view" id="logistics_sale_order_form">
+            <field name="name">logistics.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"></field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page name="logistics" string="Logistics">
+                        <group>
+                            <field name="idcanal" string="IDCANAL" />
+                            <field name="typecmd" string="TYPECDE" />
+                            <field name="idgroup" string="IDGROUP" />
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
+        <!-- ############### Actions ############### -->
+
+
+    </data>
+</openerp>

@@ -1,0 +1,1 @@
+from . import product_category_inherit_url_field

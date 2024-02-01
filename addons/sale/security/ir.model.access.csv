@@ -42,7 +42,7 @@ access_sale_order_portal,sale.order.portal,sale.model_sale_order,base.group_port
 access_sale_order_readonly,sale.order.accountant,model_sale_order,account.group_account_readonly,1,0,0,0
 access_sale_order_invoicing_payments,sale.order,model_sale_order,account.group_account_invoice,1,1,0,0
 access_sale_order_accountant,sale.order.accountant,model_sale_order,account.group_account_user,1,1,0,0
-access_sale_order,sale.order,model_sale_order,sales_team.group_sale_salesman,1,1,1,0
+access_sale_order,sale.order,model_sale_order,sales_team.group_sale_salesman,1,1,1,1
 access_sale_order_manager,sale.order.manager,model_sale_order,sales_team.group_sale_manager,1,1,1,1
 
 access_sale_order_line_portal,sale.order.line.portal,sale.model_sale_order_line,base.group_portal,1,0,0,0

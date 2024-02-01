@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data noupdate="1">
+        <!-- STOCK MOVES -->
+        <record id="base_substate_type_stock_move" model="base.substate.type">
+            <field name="name">Stock Moves Logistics Substates</field>
+            <field name="model">stock.move</field>
+            <field name="target_state_field">state</field>
+        </record>
+        <record id="target_state_value_assigned" model="target.state.value">
+            <field name="name">Assigned Moves</field>
+            <field
+        name="base_substate_type_id"
+        ref="base_substate_type_stock_move"
+      />
+            <field name="target_state_value">assigned</field>
+        </record>
+        <record
+      id="target_state_value_partially_available"
+      model="target.state.value"
+    >
+            <field name="name">Partially available Moves</field>
+            <field
+        name="base_substate_type_id"
+        ref="base_substate_type_stock_move"
+      />
+            <field name="target_state_value">partially_available</field>
+        </record>
+        <record id="target_state_value_done" model="target.state.value">
+            <field name="name">Done</field>
+            <field
+        name="base_substate_type_id"
+        ref="base_substate_type_stock_move"
+      />
+            <field name="target_state_value">done</field>
+        </record>
+
+        <!-- Logistics Values -->
+        <record id="substate_value_not_concerned" model="base.substate">
+            <field name="name">not_concerned</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="0" />
+            <field name="exclude_state_from_mrp" eval="0" />
+            <field name="sequence">100</field>
+            <field name="description">Not concerned</field>
+        </record>
+        <record id="substate_value_ready_for_logistics" model="base.substate">
+            <field name="name">ready_for_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="0" />
+            <field name="exclude_state_from_mrp" eval="0" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">10</field>
+            <field name="description">Ready for logistics</field>
+        </record>
+        <record id="substate_value_sent_to_logistics" model="base.substate">
+            <field name="name">sent_to_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">20</field>
+            <field name="description">Sent to logistics</field>
+        </record>
+        <record id="substate_value_refused_by_logistics" model="base.substate">
+            <field name="name">refused_by_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="sequence">30</field>
+            <field name="description">Refused by logistics</field>
+        </record>
+        <record id="substate_value_preparation_to_do" model="base.substate">
+            <field name="name">preparation_to_do</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">40</field>
+            <field
+        name="description"
+      >Preparation to do. Accepted by Logistics</field>
+        </record>
+        <record
+      id="substate_value_cancelled_by_logistics"
+      model="base.substate"
+    >
+            <field name="name">cancelled_by_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="sequence">50</field>
+            <field name="description">Cancelled by logistics</field>
+        </record>
+        <record
+      id="substate_value_preparation_in_progress"
+      model="base.substate"
+    >
+            <field name="name">preparation_in_progress</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">60</field>
+            <field name="description">Preparation in progress</field>
+        </record>
+        <record id="substate_value_preparation_done" model="base.substate">
+            <field name="name">preparation_done</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">65</field>
+            <field name="description">Preparation Done</field>
+        </record>
+        <record id="substate_value_waiting_for_shipping" model="base.substate">
+            <field name="name">waiting_for_shipping</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">80</field>
+            <field name="description">Waiting for shipping</field>
+        </record>
+        <!-- FOR partially_available -->
+        <record
+      id="substate_partially_value_not_concerned"
+      model="base.substate"
+    >
+            <field name="name">not_concerned</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="0" />
+            <field name="exclude_state_from_mrp" eval="0" />
+            <field name="sequence">100</field>
+            <field name="description">Not concerned</field>
+        </record>
+        <record
+      id="substate_partially_ready_for_logistics"
+      model="base.substate"
+    >
+            <field name="name">ready_for_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="0" />
+            <field name="exclude_state_from_mrp" eval="0" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">10</field>
+            <field name="description">Ready for logistics</field>
+        </record>
+        <record id="substate_partially_sent_to_logistics" model="base.substate">
+            <field name="name">sent_to_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">20</field>
+            <field name="description">Sent to logistics</field>
+        </record>
+        <record
+      id="substate_partially_refused_by_logistics"
+      model="base.substate"
+    >
+            <field name="name">refused_by_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="sequence">30</field>
+            <field name="description">Refused by logistics</field>
+        </record>
+        <record
+      id="substate_partially_value_preparation_to_do"
+      model="base.substate"
+    >
+            <field name="name">preparation_to_do</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">40</field>
+            <field
+        name="description"
+      >Preparation to do. Accepted by Logistics</field>
+        </record>
+        <record
+      id="substate_partially_value_cancelled_by_logistics"
+      model="base.substate"
+    >
+            <field name="name">cancelled_by_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="sequence">50</field>
+            <field name="description">Cancelled by logistics</field>
+        </record>
+        <record
+      id="substate_partially_value_preparation_in_progress"
+      model="base.substate"
+    >
+            <field name="name">preparation_in_progress</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">60</field>
+            <field name="description">Preparation in progress</field>
+        </record>
+        <record
+      id="substate_partially_value_preparation_done"
+      model="base.substate"
+    >
+            <field name="name">preparation_done</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">65</field>
+            <field name="description">Preparation Done</field>
+        </record>
+        <record
+      id="substate_partially_value_waiting_for_shipping"
+      model="base.substate"
+    >
+            <field name="name">waiting_for_shipping</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_value_partially_available"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">80</field>
+            <field name="description">Waiting for shipping</field>
+        </record>
+
+        <!-- TODO : Change the assignation of those state to the done state -->
+        <record id="substate_value_shipped" model="base.substate">
+            <field name="name">shipped</field>
+            <field name="target_state_value_id" ref="target_state_value_done" />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">90</field>
+            <field name="description">Shipped</field>
+        </record>
+        <record id="substate_value_delivered" model="base.substate">
+            <field name="name">delivered</field>
+            <field name="target_state_value_id" ref="target_state_value_done" />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">100</field>
+            <field name="description">Delivered</field>
+        </record>
+
+
+        <!-- STOCK PICKING -->
+        <record
+      id="base_substate_type_stock_picking"
+      model="base.substate.type"
+    >
+            <field name="name">Picking Logistics Substates</field>
+            <field name="model">stock.picking</field>
+            <field name="target_state_field">state</field>
+        </record>
+        <record
+      id="target_state_picking_value_assigned"
+      model="target.state.value"
+    >
+            <field name="name">Assigned Pickings</field>
+            <field
+        name="base_substate_type_id"
+        ref="base_substate_type_stock_picking"
+      />
+            <field name="target_state_value">assigned</field>
+        </record>
+        <record id="target_state_picking_value_done" model="target.state.value">
+            <field name="name">Done</field>
+            <field
+        name="base_substate_type_id"
+        ref="base_substate_type_stock_picking"
+      />
+            <field name="target_state_value">done</field>
+        </record>
+        <!-- Logistics Values -->
+        <record id="substate_value_picking_not_concerned" model="base.substate">
+            <field name="name">not_concerned</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="0" />
+            <field name="exclude_state_from_mrp" eval="0" />
+            <field name="sequence">100</field>
+            <field name="description">Not concerned</field>
+        </record>
+        <record
+      id="substate_value_picking_ready_for_logistics"
+      model="base.substate"
+    >
+            <field name="name">ready_for_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="0" />
+            <field name="exclude_state_from_mrp" eval="0" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">10</field>
+            <field name="description">Ready for logistics</field>
+        </record>
+        <record
+      id="substate_value_picking_sent_to_logistics"
+      model="base.substate"
+    >
+            <field name="name">sent_to_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">20</field>
+            <field name="description">Sent to logistics</field>
+        </record>
+        <record
+      id="substate_value_picking_refused_by_logistics"
+      model="base.substate"
+    >
+            <field name="name">refused_by_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="sequence">30</field>
+            <field name="description">Refused by logistics</field>
+        </record>
+        <record
+      id="substate_value_picking_preparation_to_do"
+      model="base.substate"
+    >
+            <field name="name">preparation_to_do</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">40</field>
+            <field
+        name="description"
+      >Preparation to do. Accepted by Logistics</field>
+        </record>
+        <record
+      id="substate_value_picking_cancelled_by_logistics"
+      model="base.substate"
+    >
+            <field name="name">cancelled_by_logistics</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="sequence">50</field>
+            <field name="description">Cancelled by logistics</field>
+        </record>
+        <record
+      id="substate_value_picking_preparation_in_progress"
+      model="base.substate"
+    >
+            <field name="name">preparation_in_progress</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">60</field>
+            <field name="description">Preparation in progress</field>
+        </record>
+        <record
+      id="substate_value_picking_preparation_done"
+      model="base.substate"
+    >
+            <field name="name">preparation_done</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">65</field>
+            <field name="description">Preparation Done!</field>
+        </record>
+        <record
+      id="substate_value_picking_waiting_for_shipping"
+      model="base.substate"
+    >
+            <field name="name">waiting_for_shipping</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_assigned"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">80</field>
+            <field name="description">Waiting for shipping</field>
+        </record>
+
+        <!-- TODO : Change the assignation of those state to the done state -->
+        <record id="substate_value_picking_shipped" model="base.substate">
+            <field name="name">shipped</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_done"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">90</field>
+            <field name="description">Shipped</field>
+        </record>
+        <record id="substate_value_picking_delivered" model="base.substate">
+            <field name="name">delivered</field>
+            <field
+        name="target_state_value_id"
+        ref="target_state_picking_value_done"
+      />
+            <field name="is_logistics_state" eval="1" />
+            <field name="exclude_state_from_mrp" eval="1" />
+            <field name="display_in_status_bar" eval="1" />
+            <field name="sequence">100</field>
+            <field name="description">Delivered</field>
+        </record>
+    </data>
+</openerp>

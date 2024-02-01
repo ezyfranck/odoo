@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright <YEAR(S)> <AUTHOR(S)>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <data>
+
+
+        <record id="packaging_level_logistics_level" model="ir.ui.view">
+            <field name="name">Logistic level for packaging level form</field>
+            <field name="model">product.packaging.level</field>
+            <field
+        name="inherit_id"
+        ref="product_packaging_level.view_product_packaging_level_form"
+      />
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="logistics_uom_level" />
+
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

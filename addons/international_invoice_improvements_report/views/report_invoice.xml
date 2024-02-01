@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<template id="yse_unified_report_invoice_doc_international"
+			inherit_id="account.report_invoice_document">
+
+			<xpath expr="//div[@class='row']" position="replace">
+				<div class="row">
+					<div class="col-xs-4 col-xs-offset-4" style="text-align:left">
+						<span t-if="o.delivery_address_id" style="font-weight: bold;">Deliver To:</span>
+						<address t-field="o.delivery_address_id"
+							t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" />
+
+						<span t-if="o.incoterm_id">
+							<strong>Incoterm : </strong>
+						</span>
+						<span t-field="o.incoterm_id"></span>
+					</div>
+
+					<div class="col-xs-4">
+						<address t-field="o.partner_id"
+							t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" />
+						<span t-field="o.partner_id.vat" />
+					</div>
+				</div>
+
+			</xpath>
+
+			<xpath expr="//div[@class='row mt32 mb32']" position="inside">
+
+				<!-- <xpath expr="//div[@t-if='o.reference']" position="after"> -->
+				<div class="col-xs-2" t-if="o.carrier_id">
+					<strong t-if="o.carrier_id">Carrier:</strong>
+					<p t-field="o.carrier_id" />
+				</div>
+
+			</xpath>
+			<xpath expr="(//table//thead//tr)[1]" position="replace">
+				<tr>
+					<th>Description</th>
+					<th class="text:right">Quantity</th>
+					<th class="text-right" t-if="o.typage == 'btb'">PU HT </th>
+					<th class="text-right" t-if="o.typage != 'btb'">PU TTC</th>
+					<th>Taxes</th>
+					<th groups="sale.group_discount_per_so_line">Disc.(%)</th>
+					<th class="text:right">Price</th>
+				</tr>
+
+			</xpath>
+
+			<xpath expr="//table//tbody[@class='invoice_tbody']//tr//td[1]"
+				position="inside">
+				<div class="oe_clear" />
+				<t t-if="l.origin_country_id">
+					<span>Origin:</span>
+					<span t-field="l.origin_country_id"></span>
+				</t>
+				<t t-if="l.hs_code_id">
+					<span>HS Code:</span>
+					<span t-field="l.hs_code_id"></span>
+				</t>
+			</xpath>
+
+
+			<!-- <xpath expr="//div[@class='row'][2]//table[1]" position="replace"> -->
+			<xpath expr="//div[@class='row'][2]" position="replace">
+				<div class="row">
+					<div t-if="o.typage == 'btb'" class="col-xs-3">
+						<div>
+							<span>
+								<strong>Qté:</strong>
+								<t t-esc="o.products_qty" />
+							</span>
+
+						</div>
+						<div>
+							<span>
+								<strong>Refs:</strong>
+								<t t-esc="o.nb_refs" />
+							</span>
+
+						</div>
+						<div>
+							<span>
+								<strong>Lines:</strong>
+								<t t-esc="o.nb_lines" />
+							</span>
+
+						</div>
+					</div>
+					<div class="col-xs-4 pull-right">
+						<table class="table table-condensed">
+							<tr class="border-black">
+								<td>
+									<strong>Total Without Taxes</strong>
+								</td>
+								<td class="text-right">
+									<span t-field="o.sub_total_ht_without_carrier"
+										t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}" />
+								</td>
+							</tr>
+
+							<tr t-if="o.sub_total_ht_carrier >= 0.01">
+								<td>Carrier Without Taxes</td>
+								<td class="text-right">
+									<span t-field="o.sub_total_ht_carrier"
+										t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}" />
+								</td>
+							</tr>
+							<tr>
+								<td>Taxes</td>
+								<td class="text-right">
+									<span t-field="o.amount_tax"
+										t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}" />
+								</td>
+							</tr>
+							<tr class="border-black">
+								<td>
+									<strong>Total</strong>
+								</td>
+								<td class="text-right">
+									<span t-field="o.amount_total"
+										t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+
+
+			</xpath>
+
+		</template>
+	</data>
+</openerp>

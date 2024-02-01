@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  
+    <record id="view_presta_quotation_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="priority">200</field>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="prestashop_order_id" string="Presta ID"
+                       attrs="{'invisible':[('prestashop_order_id','in',(False, 0))]}"/>
+                    
+            </field>
+        </field>
+    </record>
+  
+    <record id="view_presta_select" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="priority">200</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="prestashop_order_id" 
+                string="Presta ID"
+                />
+                    
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -133,14 +133,7 @@ class SaleOrder(models.Model):
         compute='_compute_validity_date',
         store=True, readonly=False, copy=False, precompute=True,
         states=READONLY_FIELD_STATES)
-    
-    x_delivery_method= fields.Selection(
-        string="Méthode de livraison",
-        required=True,
-        help="Méthode de livraison obligatoire pour valider le devis",
-        selection=lambda self: self._get_delivery_methods()
-    )
-    
+
     # Partner-based computes
 
     note = fields.Html(
@@ -721,13 +714,6 @@ class SaleOrder(models.Model):
                 raise UserError(_(
                     "You can not delete a sent quotation or a confirmed sales order."
                     " You must first cancel it."))
-    
-    def _get_delivery_methods(self):
-        carriers= self.env['delivery.carrier'].search([])
-        methods= []
-        for carrier in carriers:
-            methods.append((carrier.id,carrier.name))
-        return methods
 
     #=== ACTION METHODS ===#
 
